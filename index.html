@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora TDM Síncrona</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./app.css" />
   </head>
   <body
     class="bg-gray-100 min-h-screen flex flex-col items-center justify-center"
@@ -123,6 +123,12 @@
     <footer class="bg-gray-200 p-4 text-center w-full">
       <p>UTN FRT - Comunicaciones - 3K4</p>
       <p>Montilla Tomas - Legajo 53331</p>
+      <a
+        href="https://github.com/MontillaTomas/sync-tdm"
+        target="_blank"
+        class="text-blue-600 hover:underline"
+        >Repositorio en GitHub</a
+      >
     </footer>
 
     <script>
@@ -149,7 +155,7 @@
           document.getElementById(
             "frameDuration"
           ).textContent = `Duración de la trama: ${frameDuration.toFixed(
-            6
+            9
           )} segundos`;
           document.getElementById(
             "outputBitRate"
