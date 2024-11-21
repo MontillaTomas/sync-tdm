@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora TDM Síncrona</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-gray-100 min-h-screen flex flex-col items-center justify-center"
+  >
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md mb-8 mt-8">
+      <h1 class="text-2xl font-bold mb-6 text-center">
+        Calculadora TDM Síncrona
+      </h1>
+      <form id="tdmForm" class="space-y-4">
+        <div>
+          <label for="numLines" class="block text-sm font-medium text-gray-700"
+            >Número de líneas de entrada:</label
+          >
+          <input
+            type="number"
+            id="numLines"
+            required
+            class="mt-1 p-2 border rounded w-full"
+          />
+        </div>
+        <div>
+          <label for="bitRate" class="block text-sm font-medium text-gray-700"
+            >Tasa de bits de entrada (bps):</label
+          >
+          <input
+            type="number"
+            id="bitRate"
+            required
+            class="mt-1 p-2 border rounded w-full"
+          />
+        </div>
+        <div>
+          <label for="timeSlot" class="block text-sm font-medium text-gray-700"
+            >Ranura de tiempo (bits):</label
+          >
+          <input
+            type="number"
+            id="timeSlot"
+            required
+            class="mt-1 p-2 border rounded w-full"
+          />
+        </div>
+        <div>
+          <label for="syncBits" class="block text-sm font-medium text-gray-700"
+            >Bits de sincronismo:</label
+          >
+          <input
+            type="number"
+            id="syncBits"
+            required
+            class="mt-1 p-2 border rounded w-full"
+          />
+        </div>
+        <div>
+          <label
+            for="signalBits"
+            class="block text-sm font-medium text-gray-700"
+            >Bits de señalización:</label
+          >
+          <input
+            type="number"
+            id="signalBits"
+            required
+            class="mt-1 p-2 border rounded w-full"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+        >
+          Calcular
+        </button>
+      </form>
+      <div id="results" class="mt-6 space-y-2 hidden">
+        <h2 class="text-xl font-semibold">Resultados:</h2>
+        <p id="frameSize"></p>
+        <p id="frameDuration"></p>
+        <p id="outputBitRate"></p>
+      </div>
+    </div>
+
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl mb-8">
+      <h2 class="text-xl font-bold mb-4">¿Qué es TDM Síncrona?</h2>
+      <p class="mb-4">
+        TDM (Multiplexación por División de Tiempo) es una técnica utilizada
+        para señales digitales. Consiste en utilizar un solo canal de alta
+        capacidad y dividirlo en subcanales lógicos definidos en base al tiempo.
+        Cada subcanal tiene un intervalo temporal asignado, durante el cual
+        puede utilizar todo el canal principal. La TDM síncrona asigna
+        secuencialmente una ranura de tiempo a cada dispositivo, incluso si
+        alguno no tiene datos para transmitir.
+      </p>
+      <p class="mb-4">
+        <strong>Fórmulas utilizadas:</strong>
+      </p>
+      <ul class="list-disc list-inside mb-4">
+        <li>
+          Tamaño de la trama de salida = (Número de líneas de entrada × Ranura
+          de tiempo) + Bits de sincronismo + Bits de señalización
+        </li>
+        <li>
+          Duración de la trama = Ranura de tiempo / Tasa de bits de entrada
+        </li>
+        <li>
+          Tasa de bits de salida = Tamaño de la trama de salida / Duración de la
+          trama
+        </li>
+      </ul>
+      <img
+        src="./sync-tdm.png"
+        alt="Esquema de TDM Síncrona"
+        class="w-full rounded-md"
+      />
+    </div>
+
+    <footer class="bg-gray-200 p-4 text-center w-full">
+      <p>UTN FRT - Comunicaciones - 3K4</p>
+      <p>Montilla Tomas - Legajo 53331</p>
+    </footer>
+
+    <script>
+      document
+        .getElementById("tdmForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const numLines = parseInt(document.getElementById("numLines").value);
+          const bitRate = parseInt(document.getElementById("bitRate").value);
+          const timeSlot = parseInt(document.getElementById("timeSlot").value);
+          const syncBits = parseInt(document.getElementById("syncBits").value);
+          const signalBits = parseInt(
+            document.getElementById("signalBits").value
+          );
+
+          const frameSize = numLines * timeSlot + syncBits + signalBits;
+          const frameDuration = timeSlot / bitRate;
+          const outputBitRate = frameSize / frameDuration;
+
+          document.getElementById(
+            "frameSize"
+          ).textContent = `Tamaño de la trama de salida: ${frameSize} bits`;
+          document.getElementById(
+            "frameDuration"
+          ).textContent = `Duración de la trama: ${frameDuration.toFixed(
+            6
+          )} segundos`;
+          document.getElementById(
+            "outputBitRate"
+          ).textContent = `Tasa de bits de salida: ${outputBitRate.toFixed(
+            2
+          )} bps`;
+
+          document.getElementById("results").classList.remove("hidden");
+        });
+    </script>
+  </body>
+</html>
