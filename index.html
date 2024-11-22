@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora TDM Síncrona</title>
-    <link rel="stylesheet" href="./app.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body
     class="bg-gray-100 min-h-screen flex flex-col items-center justify-center"
@@ -27,14 +27,23 @@
         </div>
         <div>
           <label for="bitRate" class="block text-sm font-medium text-gray-700"
-            >Tasa de bits de entrada (bps):</label
+            >Tasa de bits de entrada:</label
           >
-          <input
-            type="number"
-            id="bitRate"
-            required
-            class="mt-1 p-2 border rounded w-full"
-          />
+          <div class="flex w-full">
+            <input
+              type="number"
+              id="bit-rate"
+              required
+              class="flex-1 mt-1 p-2 border rounded w-full"
+            />
+            <select id="bit-rate-unit" class="rounded mt-1 p-2 border rounded">
+              <option value="1">bps</option>
+              <option value="1000">kbps</option>
+              <option value="1000000">Mbps</option>
+              <option value="1000000000">Gbps</option>
+              <option value="1000000000000">Tbps</option>
+            </select>
+          </div>
         </div>
         <div>
           <label for="timeSlot" class="block text-sm font-medium text-gray-700"
@@ -175,7 +184,13 @@
           e.preventDefault();
 
           const numLines = parseInt(document.getElementById("numLines").value);
-          const bitRate = parseInt(document.getElementById("bitRate").value);
+          const bitRateInput = parseFloat(
+            document.getElementById("bit-rate").value
+          );
+          const bitRateUnit = parseFloat(
+            document.getElementById("bit-rate-unit").value
+          );
+          const bitRate = bitRateInput * bitRateUnit;
           const timeSlot = parseInt(document.getElementById("timeSlot").value);
           const syncBits = parseInt(document.getElementById("syncBits").value);
           const signalBits = parseInt(
