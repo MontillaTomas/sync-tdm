@@ -22,6 +22,8 @@
             type="number"
             id="numLines"
             required
+            min="1"
+            step="1"
             class="mt-1 p-2 border rounded w-full"
           />
         </div>
@@ -34,6 +36,8 @@
               type="number"
               id="bit-rate"
               required
+              min="0"
+              step="any"
               class="flex-1 mt-1 p-2 border rounded w-full"
             />
             <select id="bit-rate-unit" class="rounded mt-1 p-2 border rounded">
@@ -53,6 +57,8 @@
             type="number"
             id="timeSlot"
             required
+            min="1"
+            step="1"
             class="mt-1 p-2 border rounded w-full"
           />
         </div>
@@ -64,6 +70,8 @@
             type="number"
             id="syncBits"
             required
+            min="0"
+            step="1"
             class="mt-1 p-2 border rounded w-full"
           />
         </div>
@@ -77,6 +85,8 @@
             type="number"
             id="signalBits"
             required
+            min="0"
+            step="1"
             class="mt-1 p-2 border rounded w-full"
           />
         </div>
@@ -196,6 +206,31 @@
           const signalBits = parseInt(
             document.getElementById("signalBits").value
           );
+
+          if (numLines < 1 || !Number.isInteger(numLines)) {
+            alert("El número de líneas debe ser un entero igual o mayor a 1");
+            return;
+          }
+          if (bitRate <= 0) {
+            alert("La tasa de bits debe ser mayor que 0");
+            return;
+          }
+          if (timeSlot < 1 || !Number.isInteger(timeSlot)) {
+            alert("La ranura de tiempo debe ser un entero igual o mayor a 1");
+            return;
+          }
+          if (syncBits < 0 || !Number.isInteger(syncBits)) {
+            alert(
+              "Los bits de sincronismo deben ser un entero igual o mayor a 0"
+            );
+            return;
+          }
+          if (signalBits < 0 || !Number.isInteger(signalBits)) {
+            alert(
+              "Los bits de señalización deben ser un entero igual o mayor a 0"
+            );
+            return;
+          }
 
           const frameSize = numLines * timeSlot + syncBits + signalBits;
           const frameDuration = timeSlot / bitRate;
