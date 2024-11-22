@@ -21,16 +21,18 @@ La **Multiplexación por División de Tiempo** (TDM, por sus siglas en inglés) 
 ## Cómo usar la calculadora
 
 1. Ingrese los valores necesarios en los campos:
-   - **Número de líneas de entrada**
-   - **Tasa de bits de entrada (bps)**
-   - **Ranura de tiempo (bits)**
+   - **Número de líneas de entrada o fuentes**
+   - **Tasa de bits de entrada**
+   - **Ranura de tiempo  o bits por fuente**
    - **Bits de sincronismo**
    - **Bits de señalización**
 2. Presione el botón **Calcular**.
 3. Revise los resultados generados:
    - **Tamaño de la trama de salida**
    - **Duración de la trama**
+   - **Tasa de tramas**
    - **Tasa de bits de salida**
+   - **Eficiencia del sistema**
 
 ## Probar la aplicación
 
