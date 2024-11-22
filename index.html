@@ -140,6 +140,35 @@
     </footer>
 
     <script>
+      const prefixes = [
+        { prefix: "Q", factor: 1e30 },
+        { prefix: "R", factor: 1e27 },
+        { prefix: "Y", factor: 1e24 },
+        { prefix: "Z", factor: 1e21 },
+        { prefix: "E", factor: 1e18 },
+        { prefix: "P", factor: 1e15 },
+        { prefix: "T", factor: 1e12 },
+        { prefix: "G", factor: 1e9 },
+        { prefix: "M", factor: 1e6 },
+        { prefix: "k", factor: 1e3 },
+        { prefix: "", factor: 1 },
+        { prefix: "m", factor: 1e-3 },
+        { prefix: "µ", factor: 1e-6 },
+        { prefix: "n", factor: 1e-9 },
+        { prefix: "p", factor: 1e-12 },
+        { prefix: "f", factor: 1e-15 },
+        { prefix: "a", factor: 1e-18 },
+        { prefix: "z", factor: 1e-21 },
+        { prefix: "y", factor: 1e-24 },
+        { prefix: "r", factor: 1e-27 },
+        { prefix: "q", factor: 1e-30 },
+      ];
+
+      function formatWithPrefix(value, unit) {
+        const prefix = prefixes.find((p) => Math.abs(value) >= p.factor);
+        return `${(value / prefix.factor).toFixed(2)} ${prefix.prefix}${unit}`;
+      }
+
       document
         .getElementById("tdmForm")
         .addEventListener("submit", function (e) {
@@ -165,19 +194,22 @@
           ).textContent = `Tamaño de la trama de salida: ${frameSize} bits`;
           document.getElementById(
             "frameDuration"
-          ).textContent = `Duración de la trama: ${frameDuration.toFixed(
-            9
-          )} segundos`;
+          ).textContent = `Duración de la trama: ${formatWithPrefix(
+            frameDuration,
+            "s"
+          )}`;
           document.getElementById(
             "frameRate"
-          ).textContent = `Tasa de tramas: ${frameRate.toFixed(
-            2
-          )} tramas/segundo`;
+          ).textContent = `Tasa de tramas: ${formatWithPrefix(
+            frameRate,
+            "tramas/s"
+          )}`;
           document.getElementById(
             "outputBitRate"
-          ).textContent = `Tasa de bits de salida: ${outputBitRate.toFixed(
-            2
-          )} bps`;
+          ).textContent = `Tasa de bits de salida: ${formatWithPrefix(
+            outputBitRate,
+            "bps"
+          )}`;
           document.getElementById(
             "systemEfficiency"
           ).textContent = `Eficiencia del sistema: ${systemEfficiency.toFixed(
