@@ -16,7 +16,7 @@
       <form id="tdmForm" class="space-y-4">
         <div>
           <label for="numLines" class="block text-sm font-medium text-gray-700"
-            >Número de líneas de entrada:</label
+            >Número de líneas de entrada o fuentes:</label
           >
           <input
             type="number"
@@ -38,7 +38,7 @@
         </div>
         <div>
           <label for="timeSlot" class="block text-sm font-medium text-gray-700"
-            >Ranura de tiempo (bits):</label
+            >Ranura de tiempo o bits por fuente (bits):</label
           >
           <input
             type="number"
@@ -82,7 +82,9 @@
         <h2 class="text-xl font-semibold">Resultados:</h2>
         <p id="frameSize"></p>
         <p id="frameDuration"></p>
+        <p id="frameRate"></p>
         <p id="outputBitRate"></p>
+        <p id="systemEfficiency"></p>
       </div>
     </div>
 
@@ -108,9 +110,15 @@
         <li>
           Duración de la trama = Ranura de tiempo / Tasa de bits de entrada
         </li>
+        <li>Tasa de tramas = 1 / Duración de la trama</li>
         <li>
           Tasa de bits de salida = Tamaño de la trama de salida / Duración de la
           trama
+        </li>
+        <li>
+          Eficiencia del sistema = (Tamaño de la trama de salida - Bits de
+          sincronismo - Bits de señalización) / Tamaño de la trama de salida ×
+          100
         </li>
       </ul>
       <img
@@ -147,7 +155,10 @@
 
           const frameSize = numLines * timeSlot + syncBits + signalBits;
           const frameDuration = timeSlot / bitRate;
+          const frameRate = 1 / frameDuration;
           const outputBitRate = frameSize / frameDuration;
+          const systemEfficiency =
+            ((frameSize - syncBits - signalBits) / frameSize) * 100;
 
           document.getElementById(
             "frameSize"
@@ -158,10 +169,20 @@
             9
           )} segundos`;
           document.getElementById(
+            "frameRate"
+          ).textContent = `Tasa de tramas: ${frameRate.toFixed(
+            2
+          )} tramas/segundo`;
+          document.getElementById(
             "outputBitRate"
           ).textContent = `Tasa de bits de salida: ${outputBitRate.toFixed(
             2
           )} bps`;
+          document.getElementById(
+            "systemEfficiency"
+          ).textContent = `Eficiencia del sistema: ${systemEfficiency.toFixed(
+            2
+          )}%`;
 
           document.getElementById("results").classList.remove("hidden");
         });

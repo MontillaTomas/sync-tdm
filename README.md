@@ -12,8 +12,11 @@ La **Multiplexación por División de Tiempo** (TDM, por sus siglas en inglés) 
 
 2. **Duración de la trama** = Ranura de tiempo / Tasa de bits de entrada
 
-3. **Tasa de bits de salida** = Tamaño de la trama de salida / Duración de la trama
+3. **Tasa de tramas** = 1 / Duración de la trama
 
+4. **Tasa de bits de salida** = Tamaño de la trama de salida / Duración de la trama
+
+5. **Eficiencia del sistema** = (Tamaño de la trama de salida - Bits de sincronismo - Bits de señalización) / Tamaño de la trama de salida * 100
 
 ## Cómo usar la calculadora
 
