@@ -68,27 +68,22 @@ document.getElementById("tdmForm").addEventListener("submit", function (e) {
   const systemEfficiency =
     ((frameSize - syncBits - signalBits) / frameSize) * 100;
 
-  document.getElementById(
-    "frameSize"
-  ).textContent = `Tamaño de la trama de salida: ${frameSize} bits`;
-  document.getElementById(
-    "frameDuration"
-  ).textContent = `Duración de la trama: ${formatWithPrefix(
+  document.getElementById("frameSizeResult").value = `${frameSize} bits`;
+  document.getElementById("frameDurationResult").value = formatWithPrefix(
     frameDuration,
     "s"
-  )}`;
-  document.getElementById(
-    "frameRate"
-  ).textContent = `Tasa de tramas: ${formatWithPrefix(frameRate, "tramas/s")}`;
-  document.getElementById(
-    "outputBitRate"
-  ).textContent = `Tasa de bits de salida: ${formatWithPrefix(
+  );
+  document.getElementById("frameRateResult").value = formatWithPrefix(
+    frameRate,
+    "tramas/s"
+  );
+  document.getElementById("outputBitRateResult").value = formatWithPrefix(
     outputBitRate,
     "bps"
-  )}`;
+  );
   document.getElementById(
-    "systemEfficiency"
-  ).textContent = `Eficiencia del sistema: ${systemEfficiency.toFixed(2)}%`;
+    "systemEfficiencyResult"
+  ).value = `${systemEfficiency.toFixed(2)}%`;
 
   document.getElementById("results").classList.remove("hidden");
 });

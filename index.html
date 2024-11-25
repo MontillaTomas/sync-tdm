@@ -9,105 +9,176 @@
   <body
     class="bg-gray-100 min-h-screen flex flex-col items-center justify-center"
   >
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md mb-8 mt-8">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-6xl mb-8 mt-8">
       <h1 class="text-2xl font-bold mb-6 text-center">
         Calculadora TDM Síncrona
       </h1>
-      <form id="tdmForm" class="space-y-4">
-        <div>
-          <label for="numLines" class="block text-sm font-medium text-gray-700"
-            >Número de líneas de entrada o fuentes:</label
-          >
-          <input
-            type="number"
-            id="numLines"
-            required
-            min="1"
-            step="1"
-            class="mt-1 p-2 border rounded w-full"
-          />
-        </div>
-        <div>
-          <label for="bitRate" class="block text-sm font-medium text-gray-700"
-            >Tasa de bits de entrada:</label
-          >
-          <div class="flex w-full">
+      <div class="flex flex-col md:flex-row gap-8">
+        <form id="tdmForm" class="space-y-4 flex-1">
+          <h2 class="text-xl font-semibold">Datos:</h2>
+          <div>
+            <label
+              for="numLines"
+              class="block text-sm font-medium text-gray-700"
+              >Número de líneas de entrada o fuentes:</label
+            >
             <input
               type="number"
-              id="bit-rate"
+              id="numLines"
+              required
+              min="1"
+              step="1"
+              class="mt-1 p-2 border rounded w-full"
+            />
+          </div>
+          <div>
+            <label for="bitRate" class="block text-sm font-medium text-gray-700"
+              >Tasa de bits de entrada:</label
+            >
+            <div class="flex w-full">
+              <input
+                type="number"
+                id="bit-rate"
+                required
+                min="0"
+                step="any"
+                class="flex-1 mt-1 p-2 border rounded-l"
+              />
+              <select id="bit-rate-unit" class="mt-1 p-2 border rounded-r">
+                <option value="1">bps</option>
+                <option value="1000">kbps</option>
+                <option value="1000000">Mbps</option>
+                <option value="1000000000">Gbps</option>
+                <option value="1000000000000">Tbps</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label
+              for="timeSlot"
+              class="block text-sm font-medium text-gray-700"
+              >Ranura de tiempo o bits por fuente:</label
+            >
+            <input
+              type="number"
+              id="timeSlot"
+              required
+              min="1"
+              step="1"
+              class="mt-1 p-2 border rounded w-full"
+            />
+          </div>
+          <div>
+            <label
+              for="syncBits"
+              class="block text-sm font-medium text-gray-700"
+              >Bits de sincronismo:</label
+            >
+            <input
+              type="number"
+              id="syncBits"
               required
               min="0"
-              step="any"
-              class="flex-1 mt-1 p-2 border rounded w-full"
+              step="1"
+              class="mt-1 p-2 border rounded w-full"
             />
-            <select id="bit-rate-unit" class="rounded mt-1 p-2 border rounded">
-              <option value="1">bps</option>
-              <option value="1000">kbps</option>
-              <option value="1000000">Mbps</option>
-              <option value="1000000000">Gbps</option>
-              <option value="1000000000000">Tbps</option>
-            </select>
+          </div>
+          <div>
+            <label
+              for="signalBits"
+              class="block text-sm font-medium text-gray-700"
+              >Bits de señalización:</label
+            >
+            <input
+              type="number"
+              id="signalBits"
+              required
+              min="0"
+              step="1"
+              class="mt-1 p-2 border rounded w-full"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
+          >
+            Calcular
+          </button>
+        </form>
+        <div id="results" class="flex-1 space-y-2 hidden md:block">
+          <h2 class="text-xl font-semibold mb-4">Resultados:</h2>
+          <div class="space-y-4">
+            <div>
+              <label
+                for="frameSizeResult"
+                class="block text-sm font-medium text-gray-700"
+                >Tamaño de la trama de salida:</label
+              >
+              <input
+                type="text"
+                id="frameSizeResult"
+                disabled
+                class="mt-1 p-2 border rounded w-full bg-gray-100"
+              />
+            </div>
+            <div>
+              <label
+                for="frameDurationResult"
+                class="block text-sm font-medium text-gray-700"
+                >Duración de la trama:</label
+              >
+              <input
+                type="text"
+                id="frameDurationResult"
+                disabled
+                class="mt-1 p-2 border rounded w-full bg-gray-100"
+              />
+            </div>
+            <div>
+              <label
+                for="frameRateResult"
+                class="block text-sm font-medium text-gray-700"
+                >Tasa de tramas:</label
+              >
+              <input
+                type="text"
+                id="frameRateResult"
+                disabled
+                class="mt-1 p-2 border rounded w-full bg-gray-100"
+              />
+            </div>
+            <div>
+              <label
+                for="outputBitRateResult"
+                class="block text-sm font-medium text-gray-700"
+                >Tasa de bits de salida:</label
+              >
+              <input
+                type="text"
+                id="outputBitRateResult"
+                disabled
+                class="mt-1 p-2 border rounded w-full bg-gray-100"
+              />
+            </div>
+            <div>
+              <label
+                for="systemEfficiencyResult"
+                class="block text-sm font-medium text-gray-700"
+                >Eficiencia del sistema:</label
+              >
+              <input
+                type="text"
+                id="systemEfficiencyResult"
+                disabled
+                class="mt-1 p-2 border rounded w-full bg-gray-100"
+              />
+            </div>
           </div>
         </div>
-        <div>
-          <label for="timeSlot" class="block text-sm font-medium text-gray-700"
-            >Ranura de tiempo o bits por fuente:</label
-          >
-          <input
-            type="number"
-            id="timeSlot"
-            required
-            min="1"
-            step="1"
-            class="mt-1 p-2 border rounded w-full"
-          />
-        </div>
-        <div>
-          <label for="syncBits" class="block text-sm font-medium text-gray-700"
-            >Bits de sincronismo:</label
-          >
-          <input
-            type="number"
-            id="syncBits"
-            required
-            min="0"
-            step="1"
-            class="mt-1 p-2 border rounded w-full"
-          />
-        </div>
-        <div>
-          <label
-            for="signalBits"
-            class="block text-sm font-medium text-gray-700"
-            >Bits de señalización:</label
-          >
-          <input
-            type="number"
-            id="signalBits"
-            required
-            min="0"
-            step="1"
-            class="mt-1 p-2 border rounded w-full"
-          />
-        </div>
-        <button
-          type="submit"
-          class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
-        >
-          Calcular
-        </button>
-      </form>
-      <div id="results" class="mt-6 space-y-2 hidden">
-        <h2 class="text-xl font-semibold">Resultados:</h2>
-        <p id="frameSize"></p>
-        <p id="frameDuration"></p>
-        <p id="frameRate"></p>
-        <p id="outputBitRate"></p>
-        <p id="systemEfficiency"></p>
       </div>
     </div>
 
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl mb-8">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-6xl mb-8">
       <h2 class="text-xl font-bold mb-4">¿Qué es TDM Síncrona?</h2>
       <p class="mb-4">
         TDM (Multiplexación por División de Tiempo) es una técnica utilizada
